@@ -30,7 +30,7 @@ import FeatureView from './childComps/FeatureView'
 import {getHomeMultidata, getHomeGoods} from 'network/home'
 import {debounce} from 'common/utils'
 import {itemListenerMixin, backTopMixin} from 'common/mixin'
-
+import {TOP_DISTANCE, POP, NEW, SELL} from "common/const";
 
 export default {
   name: "Home",
@@ -53,7 +53,7 @@ export default {
         'new': {page: 0, list: []},
         'sell': {page: 0, list: []}
       },
-      currentType: 'pop',
+      currentType: POP,
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0
@@ -69,9 +69,9 @@ export default {
     this.getHomeMultidata()
 
     // 2.请求商品数据
-    this.getHomeGoods('pop')
-    this.getHomeGoods('new')
-    this.getHomeGoods('sell')
+    this.getHomeGoods(POP)
+    this.getHomeGoods(NEW)
+    this.getHomeGoods(SELL)
   },
   destroyed() {
   },
@@ -113,13 +113,13 @@ export default {
     tabClick(index) {
       switch(index){
         case 0:
-          this.currentType = 'pop';
+          this.currentType = POP;
           break;
         case 1: 
-          this.currentType = 'new';
+          this.currentType = NEW;
           break;
         case 2: 
-          this.currentType = 'sell';
+          this.currentType = SELL;
           break;
       }
       this.$refs.tabControl1.currentIndex = index;
@@ -127,7 +127,7 @@ export default {
     },
     contentScroll(position) {
       // 1.判断backTop是否显示
-      this.isShowBackTop = -(position.y) > 1000
+      this.isShowBackTop = -(position.y) > TOP_DISTANCE
 
       // 2.决定tabControl是否有吸顶效果
       this.isTabFixed = -(position.y) > this.tabOffsetTop
