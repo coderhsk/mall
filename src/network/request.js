@@ -2,11 +2,9 @@ import axios from 'axios'
 
 export function request(config) {
 
-  // http://152.136.185.210:7878/api/m5/home/data?type=sell&page=1
-  // http://123.207.32.32:8000
   // 1.创建实例
   const instance = axios.create({
-    baseURL: 'http://152.136.185.210:7878/api/m5',
+    baseURL: 'http://xxxxxxx',
     timeout: 5000
   })
 
